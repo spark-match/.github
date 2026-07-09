@@ -1,10 +1,12 @@
-# CODEOWNERS - Spark Match Org Config
-# Aprobaciones requeridas para PRs en este repositorio (.github).
+﻿# CODEOWNERS — Spark Match Org Config
+#
+# Política de aprobación (ADR-003 branch-based deployment):
+# - dev: 1 aprobación del CODE OWNER técnico (tech-leads) es suficiente.
+# - main: 1 CODE OWNER review (tech-leads) + reviewer manual de
+#   @spark-match/product-owners (solicitado por el autor al abrir el PR).
+#
+# CODE OWNERS del repo: @spark-match/tech-leads
+#   Miembros actuales: ahincho, dbarretol
 
-# Catch-all: tech-leads aprueban cambios de configuración a nivel organización
+# Catch-all: cualquier archivo es responsabilidad de tech-leads
 *       @spark-match/tech-leads
-
-# Workflows y CODEOWNERS: requieren tech-leads (governance) + devops (operación)
-/.github/workflows/      @spark-match/tech-leads @spark-match/devops
-/.github/workflows/**/*  @spark-match/tech-leads @spark-match/devops
-/.github/CODEOWNERS              @spark-match/tech-leads
