@@ -32,6 +32,7 @@ Una aplicación web que ayuda a estudiantes a descubrir carreras afines a su per
 
 | Repo | Descripción |
 |---|---|
+| [**spark-match-00-knowledge-base**](https://github.com/spark-match/spark-match-00-knowledge-base) | Base de conocimiento compartida (ADRs, SDDs, postmortems, onboarding) |
 | [**spark-match-01-devops**](https://github.com/spark-match/spark-match-01-devops) | Pipelines reutilizables (Terraform + LaTeX) con OIDC, lint y security checks |
 | [**spark-match-02-infrastructure**](https://github.com/spark-match/spark-match-02-infrastructure) | Infraestructura AWS como código (Terraform puro), backend S3 + OIDC |
 
@@ -43,6 +44,7 @@ Una aplicación web que ayuda a estudiantes a descubrir carreras afines a su per
 | [**spark-match-04-frontend**](https://github.com/spark-match/spark-match-04-frontend) | SPA en Angular con UI conversacional |
 | [**spark-match-05-data-pipeline**](https://github.com/spark-match/spark-match-05-data-pipeline) | Pipelines ETL (procesamiento de datos vocacionales) |
 | [**spark-match-06-model-training**](https://github.com/spark-match/spark-match-06-model-training) | Entrenamiento y serving de modelos ML (Bedrock + embeddings) |
+| [**spark-match-08-deep-agent**](https://github.com/spark-match/spark-match-08-deep-agent) | Deep agent (LangChain + AG-UI + Bedrock) con memoria de estudiante (langmem) |
 
 ### 📝 Documentación
 
