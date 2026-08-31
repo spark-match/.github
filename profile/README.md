@@ -19,10 +19,10 @@
 Una aplicación web que ayuda a estudiantes a descubrir carreras afines a su perfil mediante:
 
 - 🧠 **IA Generativa** (Amazon Bedrock + Claude) para análisis de perfil y recomendaciones
-- 📊 **MLOps** pipelines para entrenar y servir modelos de matching vocacional
+- 📊 **Pipeline de datos reproducible** (DVC) sobre el catálogo oficial de Ponte en Carrera (MINEDU)
 - 🎨 **Frontend moderno** (Angular) con UX conversacional
-- ⚙️ **Backend escalable** (FastAPI en ECS Fargate)
-- 🗄️ **Storage y analytics** (RDS Aurora, S3, CloudFront)
+- ⚙️ **Backend serverless** (TypeScript en AWS Lambda) y **agente conversacional** (Python en ECS Fargate)
+- 🗄️ **Storage** (RDS PostgreSQL, S3, CloudFront)
 
 ---
 
@@ -40,10 +40,10 @@ Una aplicación web que ayuda a estudiantes a descubrir carreras afines a su per
 
 | Repo | Descripción |
 |---|---|
-| [**spark-match-03-backend**](https://github.com/spark-match/spark-match-03-backend) | API REST en FastAPI (servicios core, integración con IA) |
+| [**spark-match-03-backend**](https://github.com/spark-match/spark-match-03-backend) | API serverless en TypeScript sobre AWS Lambda: identidad, RBAC, auditoría e informes |
 | [**spark-match-04-frontend**](https://github.com/spark-match/spark-match-04-frontend) | SPA en Angular con UI conversacional |
-| [**spark-match-05-data-pipeline**](https://github.com/spark-match/spark-match-05-data-pipeline) | Pipelines ETL (procesamiento de datos vocacionales) |
-| [**spark-match-07-deep-agent**](https://github.com/spark-match/spark-match-07-deep-agent) | Deep agent (LangChain + AG-UI + Bedrock) con memoria de estudiante (langmem) |
+| [**spark-match-05-data-pipeline**](https://github.com/spark-match/spark-match-05-data-pipeline) | Pipeline ETL con DVC: limpieza, features y etiquetado RIASEC del catálogo MINEDU |
+| [**spark-match-07-deep-agent**](https://github.com/spark-match/spark-match-07-deep-agent) | Agente conversacional (LangGraph + AG-UI + Bedrock) con evaluación RIASEC, scoring determinista y memoria (langmem) |
 
 ### 📝 Documentación
 
@@ -60,9 +60,9 @@ Una aplicación web que ayuda a estudiantes a descubrir carreras afines a su per
 | **owners** | Propietarios de la organización |
 | **product-owners** | Gestión de prioridades y aprobaciones finales |
 | **devops** | Infraestructura AWS y Terraform |
-| **backend-devs** | API REST en FastAPI, servicios core |
+| **backend-devs** | API serverless en TypeScript, servicios core |
 | **frontend-devs** | SPA en Angular |
-| **ai-devs** | IA/ML: LangChain, prompts, embeddings, modelos |
+| **ai-devs** | Agente y datos: LangGraph, prompts, scoring, pipeline RIASEC |
 | **qa** | Aseguramiento de calidad y testing |
 | **article-authors** | Autores del artículo académico |
 
@@ -76,21 +76,28 @@ Una aplicación web que ayuda a estudiantes a descubrir carreras afines a su per
 - **S3 + Lockfile** — Backend state remoto (sin DynamoDB)
 - **GitHub Actions + OIDC** — CI/CD sin access keys
 
-### Backend & AI
-- **FastAPI** — API REST en Python
+### Backend
+- **TypeScript + AWS Lambda (SAM)** — API serverless, arquitectura DDD + EDA
+- **PostgreSQL (RDS)** — Base de datos transaccional
+- **EventBridge** — Eventos de dominio
+
+### Agente
+- **Python + FastAPI** — Servidor AG-UI sobre SSE, en ECS Fargate
+- **LangGraph + deepagents** — Orquestación del grafo y subagentes
 - **Amazon Bedrock** — Modelos fundacionales (Claude)
-- **LangChain** — Orquestación de LLMs
-- **PostgreSQL (RDS Aurora)** — Base de datos transaccional
 
 ### Frontend
 - **Angular** — SPA con TypeScript
 - **CloudFront** — CDN
 - **S3** — Hosting estático
 
-### Data & ML
-- **S3 + Glue/Athena** — Data lake
-- **SageMaker / Bedrock** — Model training y serving
+### Datos
+- **DVC** — Versionado y reproducibilidad del pipeline
+- **pandas + Bedrock** — Limpieza, features y etiquetado RIASEC
 - **CloudWatch** — Monitoring y logs
+
+> El proyecto **no entrena modelos propios**: usa modelos fundacionales de
+> Bedrock, y el ranking lo calcula código determinista, no un modelo aprendido.
 
 ### Documentación
 - **LaTeX** — Artículo académico (TFP)
@@ -108,7 +115,7 @@ Todos los repos siguen estas prácticas:
 - ✅ **Roles separados** para plan (read-only) vs apply (write)
 - ✅ **GitHub Environments** como approval gates para deploys a producción
 - ✅ **CI lint checks** (actionlint, gitleaks, yamllint) como required status checks
-- ✅ **enforce_admins** activado (admins no pueden bypasear protecciones)
+- ⚠️ **Los administradores de la organización pueden saltarse el ruleset** vía pull request. Es deliberado (desbloquea a un equipo pequeño), pero conviene tenerlo presente: la protección de rama no es absoluta
 
 ---
 
