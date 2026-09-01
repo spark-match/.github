@@ -1,37 +1,28 @@
 # CODEOWNERS - Spark Match Org Profile
 #
-# Politica de aprobacion (configurada via RULESET, no via branch protection):
-#   ruleset `spark-match-default-branch-protection`, aplicado a la rama por
-#   defecto y a refs/heads/dev.
+# Este archivo declara UNA sola cosa: quien es owner de cada path.
 #
-#   - required_approving_review_count: 1
-#   - require_code_owner_review: true
-#   - require_last_push_approval: FALSE
-#   - required_review_thread_resolution: true
-#   - dismiss_stale_reviews_on_push: true
-#   - require_extra_approval_for_unattributed_changes: true
-#   - allowed_merge_methods: solo squash
-#   - bypass: OrganizationAdmin (modo pull_request)
+# La politica de aprobacion NO se documenta aqui. Vive en el ruleset
+# `spark-match-default-branch-protection` y se consulta ahi:
 #
-#   Esta cabecera decia antes "configurada en branch protection" y
-#   "require_last_push_approval: true". Las dos cosas eran falsas: la
-#   proteccion clasica de este repo se elimino (la API responde "Branch not
-#   protected") y el ruleset fija require_last_push_approval en false. La
-#   obsolescencia estaba anticipada en governance/repository-governance.json
-#   del repo 01-devops.
+#   gh api repos/spark-match/.github/rulesets --jq '.[] | "\(.id) \(.name)"'
+#   gh api repos/spark-match/.github/rulesets/<id>
 #
-# CODE OWNER del repo (catch-all): @spark-match/devops
-#   Miembros: dbarretol, ahincho
+# Esta cabecera solia repetir los ajustes del ruleset. Copiar configuracion
+# garantiza que se desincronice, y se desincronizo: describia una politica que
+# el ruleset ya no aplica, y un mecanismo de proteccion que ya no existe. Por
+# eso aqui no se repite ningun ajuste: se consulta en la fuente.
 #
-# Paths criticos (governance): @spark-match/product-owners
-#   Miembros: dbarretol, FabiTaparaQuispe, ahincho
+# Lo unico que hace falta saber aqui: el ruleset exige review de CODE OWNER,
+# de modo que este archivo es lo que decide A QUIEN se le pide. Si un path no
+# aparece, decide el catch-all.
 #
-# Nota: el autor del PR no puede aprobar su propio PR, ni siquiera siendo
-# CODE OWNER (regla de GitHub). Por ejemplo, un PR abierto por ahincho
-# necesita la aprobacion de cualquier otro miembro del team.
+# Precedencia: para un archivo dado gana el ULTIMO patron que coincida, y gana
+# en exclusiva. GitHub NO acumula owners entre patrones.
 #
-# Sobre precedencia: para un archivo dado gana el ULTIMO patron que coincida,
-# y gana en exclusiva. GitHub NO acumula owners entre patrones.
+# Teams:
+#   @spark-match/devops           dbarretol, ahincho
+#   @spark-match/product-owners   dbarretol, FabiTaparaQuispe, ahincho
 
 # =============================================================================
 # Catch-all: el equipo tecnico del repo es CODE OWNER del codigo
