@@ -1,22 +1,37 @@
 # CODEOWNERS - Spark Match Org Profile
 #
-# Politica de aprobacion (configurada en branch protection):
-#   - dev:  required_approving_review_count: 1
-#            require_code_owner_reviews: true
-#   - main: required_approving_review_count: 1
-#            require_code_owner_reviews: true
-#            require_last_push_approval: true
+# Politica de aprobacion (configurada via RULESET, no via branch protection):
+#   ruleset `spark-match-default-branch-protection`, aplicado a la rama por
+#   defecto y a refs/heads/dev.
+#
+#   - required_approving_review_count: 1
+#   - require_code_owner_review: true
+#   - require_last_push_approval: FALSE
+#   - required_review_thread_resolution: true
+#   - dismiss_stale_reviews_on_push: true
+#   - require_extra_approval_for_unattributed_changes: true
+#   - allowed_merge_methods: solo squash
+#   - bypass: OrganizationAdmin (modo pull_request)
+#
+#   Esta cabecera decia antes "configurada en branch protection" y
+#   "require_last_push_approval: true". Las dos cosas eran falsas: la
+#   proteccion clasica de este repo se elimino (la API responde "Branch not
+#   protected") y el ruleset fija require_last_push_approval en false. La
+#   obsolescencia estaba anticipada en governance/repository-governance.json
+#   del repo 01-devops.
 #
 # CODE OWNER del repo (catch-all): @spark-match/devops
 #   Miembros: dbarretol, ahincho
 #
 # Paths criticos (governance): @spark-match/product-owners
-#   - Decisiones arquitectonicas, onboarding, postmortems, docs raiz.
-#   - Miembros: dbarretol, FabiTaparaQuispe, ahincho
+#   Miembros: dbarretol, FabiTaparaQuispe, ahincho
 #
 # Nota: el autor del PR no puede aprobar su propio PR, ni siquiera siendo
 # CODE OWNER (regla de GitHub). Por ejemplo, un PR abierto por ahincho
 # necesita la aprobacion de cualquier otro miembro del team.
+#
+# Sobre precedencia: para un archivo dado gana el ULTIMO patron que coincida,
+# y gana en exclusiva. GitHub NO acumula owners entre patrones.
 
 # =============================================================================
 # Catch-all: el equipo tecnico del repo es CODE OWNER del codigo
@@ -26,9 +41,20 @@
 # =============================================================================
 # Paths criticos: product-owners revisa governance y docs raiz
 # =============================================================================
+/README.md                                 @spark-match/product-owners
+/LICENSE                                   @spark-match/product-owners
+
+# -----------------------------------------------------------------------------
+# Reservas: paths que NO existen hoy en este repositorio.
+#
+# Se dejan escritas para que, si alguien los crea, el owner ya este decidido y
+# no dependa de que alguien se acuerde de anadirlo. Hoy no coinciden con nada,
+# asi que no afectan a ninguna revision.
+#
+# El contenido real de este repositorio es `profile/README.md` (la portada
+# publica de la organizacion), `README.md`, `LICENSE` y `.gitignore`.
+# -----------------------------------------------------------------------------
 /decisions/                                @spark-match/product-owners
 /onboarding/                               @spark-match/product-owners
 /postmortems/                              @spark-match/product-owners
-/README.md                                 @spark-match/product-owners
 /CONTRIBUTING.md                           @spark-match/product-owners
-/LICENSE                                   @spark-match/product-owners
